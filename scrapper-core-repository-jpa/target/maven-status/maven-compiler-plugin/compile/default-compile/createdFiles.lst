@@ -1,0 +1,5 @@
+org\tttamics\scrapper\core\repository\jpa\repository\CompetitionJpaRepositoryHelper.class
+org\tttamics\scrapper\core\repository\jpa\mappers\CompetitionToJpCompetitionMapper.class
+org\tttamics\scrapper\core\repository\jpa\adapters\CompetitionJpaRepository.class
+org\tttamics\scrapper\core\repository\jpa\model\JpaCompetition.class
+org\tttamics\scrapper\core\repository\jpa\mappers\JpaCompetitionToCompetitionMapper.class

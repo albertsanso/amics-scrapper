@@ -1,0 +1,10 @@
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\model\match\Match.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\model\competition\Competition.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\port\CompetitionRepository.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\service\competition\CompetitionCreationService.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\model\match\MatchResult.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\event\OrganizationDisabled.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\model\competition\CompetitionGroup.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\model\organization\Organization.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\model\organization\OrganizationType.java
+C:\repo\local\amics-scrapper\scrapper-core\src\main\java\org\tttamics\scrapper\core\domain\event\CompetitionGroupAdded.java
