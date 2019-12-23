@@ -1,4 +1,0 @@
-org\tttamics\scrapper\core\domain\event\OrganizationDisabled.class
-org\tttamics\scrapper\core\domain\service\competition\CompetitionCreationService.class
-org\tttamics\scrapper\core\domain\event\CompetitionGroupAdded.class
-org\tttamics\scrapper\core\domain\port\CompetitionRepository.class
