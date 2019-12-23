@@ -11,7 +11,8 @@ import java.util.function.Function;
 public class JpaOrganizationToOrganizationMapper implements Function<JpaOrganization, Organization> {
     @Override
     public Organization apply(JpaOrganization jpaOrganization) {
-        return Organization.builder(jpaOrganization.getId(), jpaOrganization.getName())
+        return Organization.builder(jpaOrganization.getName())
+                .withId(jpaOrganization.getId())
                 .withOrganizationType(OrganizationType.getByKey(jpaOrganization.getType()))
                 .withActive(jpaOrganization.isActive())
                 .create();

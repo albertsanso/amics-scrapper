@@ -2,6 +2,7 @@ package org.tttamics.scrapper.core.domain.model.match;
 
 import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.MatchCreatedEvent;
+import org.tttamics.scrapper.core.domain.event.MatchModifiedEvent;
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
 
@@ -17,11 +18,11 @@ public class Match extends Entity {
     private MatchResult result;
 
     private Match(String id,
-                 Organization local,
-                 Organization visitor,
-                 ZonedDateTime startDateTime,
-                 CompetitionGroup group,
-                 Integer day,
+                  Organization local,
+                  Organization visitor,
+                  ZonedDateTime startDateTime,
+                  CompetitionGroup group,
+                  Integer day,
                   MatchResult result) {
         this.id = id;
         this.local = local;
@@ -52,7 +53,7 @@ public class Match extends Entity {
         publishEvent(new MatchCreatedEvent());
     }
 
-    public static MatchBuilder builder() { return new MatchBuilder(); }
+    public static MatchBuilder builder(Organization local, Organization visitor) { return new MatchBuilder(local, visitor); }
 
     public String getId() {
         return id;
@@ -82,6 +83,24 @@ public class Match extends Entity {
         return result;
     }
 
+    public void modifyMatch(
+            Organization local,
+            Organization visitor,
+            ZonedDateTime startDateTime,
+            CompetitionGroup group,
+            Integer day,
+            MatchResult result) {
+
+        this.local = local;
+        this.visitor = visitor;
+        this.startDateTime = startDateTime;
+        this.group = group;
+        this.day = day;
+        this.result = result;
+
+        publishEvent(new MatchModifiedEvent());
+    }
+
     public static final class MatchBuilder {
         private String id;
         private Organization local;
@@ -91,23 +110,9 @@ public class Match extends Entity {
         private Integer day;
         private MatchResult result;
 
-        public MatchBuilder() {}
-
-        public MatchBuilder(
-                String id,
-                Organization local,
-                Organization visitor,
-                ZonedDateTime startDateTime,
-                CompetitionGroup group,
-                Integer day,
-                MatchResult result) {
-            this.id = id;
+        public MatchBuilder(Organization local, Organization visitor) {
             this.local = local;
             this.visitor = visitor;
-            this.startDateTime = startDateTime;
-            this.group = group;
-            this.day = day;
-            this.result = result;
         }
 
         public MatchBuilder withId(String id) {

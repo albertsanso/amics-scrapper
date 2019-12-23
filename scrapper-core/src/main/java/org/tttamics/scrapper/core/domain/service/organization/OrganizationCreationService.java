@@ -20,7 +20,8 @@ public class OrganizationCreationService {
 
     public Organization createNewOrganizationForType(String name, OrganizationType organizationType) {
         String id = UUID.randomUUID().toString();
-        Organization organization = Organization.builder(id, name)
+        Organization organization = Organization.builder(name)
+                .withId(id)
                 .withActive(true)
                 .withOrganizationType(organizationType)
                 .create();

@@ -22,10 +22,8 @@ public class JpaMatchToMatchMapper implements Function<JpaMatch, Match> {
 
     @Override
     public Match apply(JpaMatch jpaMatch) {
-        return Match.builder()
+        return Match.builder(jpaOrganizationToOrganizationMapper.apply(jpaMatch.getLocal()), jpaOrganizationToOrganizationMapper.apply(jpaMatch.getVisitor()))
                 .withId(jpaMatch.getId())
-                .withLocal(jpaOrganizationToOrganizationMapper.apply(jpaMatch.getLocal()))
-                .withVisitor(jpaOrganizationToOrganizationMapper.apply(jpaMatch.getVisitor()))
                 .withStartDateTime(ZonedDateTime.parse(jpaMatch.getStartDateTime()))
                 .withGroup(new CompetitionGroup(jpaMatch.getGroup()))
                 .withDay(jpaMatch.getDay())

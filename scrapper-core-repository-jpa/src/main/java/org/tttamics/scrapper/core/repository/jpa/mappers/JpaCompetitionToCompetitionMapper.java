@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class JpaCompetitionToCompetitionMapper implements Function<JpaCompetition, Competition> {
     @Override
     public Competition apply(JpaCompetition jpaCompetition) {
-        return Competition.builder(jpaCompetition.getId(), jpaCompetition.getName())
+        return Competition.builder(jpaCompetition.getName())
                 .withId(jpaCompetition.getId())
                 .withGroups(Arrays.asList(jpaCompetition.getGroups().split(","))
                         .stream()

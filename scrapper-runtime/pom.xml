@@ -35,6 +35,12 @@
             <artifactId>scrapper-core-repository-jpa</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.albertsanso</groupId>
+            <artifactId>eventbus-synchronous-inmemory</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

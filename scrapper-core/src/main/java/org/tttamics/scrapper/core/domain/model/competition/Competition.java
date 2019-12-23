@@ -3,6 +3,7 @@ package org.tttamics.scrapper.core.domain.model.competition;
 import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.CompetitionCreatedEvent;
 import org.tttamics.scrapper.core.domain.event.CompetitionGroupAddedEvent;
+import org.tttamics.scrapper.core.domain.event.CompetitionModifiedEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,8 +41,8 @@ public class Competition extends Entity {
         publishEvent(new CompetitionCreatedEvent());
     }
 
-    public static CompetitionBuilder builder(String id, String name) {
-        return new CompetitionBuilder(id, name);
+    public static CompetitionBuilder builder(String name) {
+        return new CompetitionBuilder(name);
     }
 
     public void addCompetitionGroup(CompetitionGroup group) {
@@ -62,13 +63,19 @@ public class Competition extends Entity {
         return Collections.unmodifiableList(groups);
     }
 
+    public void modifyCompetition(String name, List<CompetitionGroup> groups) {
+        this.name = name;
+        this.groups = groups;
+
+        publishEvent(new CompetitionModifiedEvent());
+    }
+
     public static final class CompetitionBuilder {
         private String id;
         private String name;
         private List<CompetitionGroup> groups;
 
-        public CompetitionBuilder(String id, String name) {
-            this.id = id;
+        public CompetitionBuilder(String name) {
             this.name = name;
         }
 

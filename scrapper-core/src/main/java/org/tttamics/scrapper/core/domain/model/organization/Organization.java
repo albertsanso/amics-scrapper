@@ -2,6 +2,7 @@ package org.tttamics.scrapper.core.domain.model.organization;
 
 import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.OrganizationCreatedEvent;
+import org.tttamics.scrapper.core.domain.event.OrganizationModifiedEvent;
 
 public class Organization extends Entity {
 
@@ -17,7 +18,7 @@ public class Organization extends Entity {
         this.isActive = isActive;
     }
 
-    public static OrganizationBuilder builder(String id, String name) { return new OrganizationBuilder(id, name); }
+    public static OrganizationBuilder builder(String name) { return new OrganizationBuilder(name); }
 
     private static Organization createNewOrganization(OrganizationBuilder builder) {
         Organization organization = new Organization(
@@ -55,6 +56,14 @@ public class Organization extends Entity {
         return isActive;
     }
 
+    public void modifyOrganization(String name, OrganizationType type, boolean isActive) {
+        this.name = name;
+        this.type = type;
+        this.isActive = isActive;
+
+        publishEvent(new OrganizationModifiedEvent());
+    }
+
     public static final class OrganizationBuilder {
 
         private String id;
@@ -62,8 +71,7 @@ public class Organization extends Entity {
         private OrganizationType type;
         private boolean isActive;
 
-        public OrganizationBuilder(String id, String name) {
-            this.id = id;
+        public OrganizationBuilder(String name) {
             this.name = name;
         }
 

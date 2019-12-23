@@ -34,7 +34,8 @@ public class CompetitionCreationService {
 
     public Competition createNewCompetitionWithGroups(String name, List<CompetitionGroup> groups) {
         String id = UUID.randomUUID().toString();
-        Competition competition = Competition.builder(id, name)
+        Competition competition = Competition.builder(name)
+                .withId(id)
                 .withGroups(groups)
                 .create();
         competitionRepository.save(competition);

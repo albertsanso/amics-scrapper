@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.service.competition.CompetitionCreationService;
 import org.tttamics.scrapper.core.domain.service.organization.OrganizationCreationService;
@@ -11,7 +12,7 @@ import org.tttamics.scrapper.core.domain.service.organization.OrganizationFindSe
 
 import javax.inject.Inject;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = { "org.albertsanso", "org.tttamics" })
 public class Foo implements CommandLineRunner {
 
     @Inject
@@ -35,8 +36,9 @@ public class Foo implements CommandLineRunner {
         Organization organization1 = organizationCreationService.createNewClub("CTT Amics Terrassa");
         Organization organization2 = organizationFindService.findByName("CTT");
         if (organization2 != null) {
-            System.out.println(organization2.getName());
+            //System.out.println(organization2.getName());
         }
 
+        ApplicationEventPublisher a;
     }
 }
