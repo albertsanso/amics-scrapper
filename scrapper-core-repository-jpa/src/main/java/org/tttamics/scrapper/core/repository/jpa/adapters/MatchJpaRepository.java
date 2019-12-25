@@ -1,5 +1,6 @@
 package org.tttamics.scrapper.core.repository.jpa.adapters;
 
+import org.springframework.stereotype.Repository;
 import org.tttamics.scrapper.core.domain.model.match.Match;
 import org.tttamics.scrapper.core.domain.port.MatchRepository;
 import org.tttamics.scrapper.core.repository.jpa.mappers.JpaMatchToMatchMapper;
@@ -9,8 +10,10 @@ import org.tttamics.scrapper.core.repository.jpa.repository.MatchJpaRepositoryHe
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 @Named
+@Transactional
 public class MatchJpaRepository implements MatchRepository {
 
     private MatchToJpaMatchMapper matchToJpaMatchMapper;

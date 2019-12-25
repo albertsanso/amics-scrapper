@@ -60,8 +60,8 @@ public class JpaOrganization {
 
     @OneToMany(
             mappedBy = "local",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.ALL/*,
+            orphanRemoval = true*/
     )
     public List<JpaMatch> getMatches() {
         return matches;

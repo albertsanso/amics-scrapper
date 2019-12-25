@@ -1,5 +1,6 @@
 package org.tttamics.scrapper.core.repository.jpa.adapters;
 
+import org.springframework.stereotype.Repository;
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.port.OrganizationRepository;
 import org.tttamics.scrapper.core.repository.jpa.mappers.JpaOrganizationToOrganizationMapper;
@@ -9,8 +10,10 @@ import org.tttamics.scrapper.core.repository.jpa.repository.OrganizationJpaRepos
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 @Named
+@Transactional
 public class OrganizationJpaRepository implements OrganizationRepository {
 
     private OrganizationToJpaOrganizationMapper organizationToJpaOrganizationMapper;

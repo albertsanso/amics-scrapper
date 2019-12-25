@@ -1,5 +1,6 @@
 package org.tttamics.scrapper.core.repository.jpa.adapters;
 
+import org.springframework.stereotype.Repository;
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.port.CompetitionRepository;
@@ -11,8 +12,10 @@ import org.tttamics.scrapper.core.repository.jpa.repository.CompetitionJpaReposi
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 @Named
+@Transactional
 public class CompetitionJpaRepository implements CompetitionRepository {
 
     private CompetitionToJpCompetitionMapper competitionToJpCompetitionMapper;

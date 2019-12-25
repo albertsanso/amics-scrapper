@@ -48,8 +48,8 @@ public class JpaCompetition {
 
     @OneToMany(
             mappedBy = "competition",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.ALL/*,
+            orphanRemoval = true*/
     )
     public List<JpaMatch> getMatches() {
         return matches;
