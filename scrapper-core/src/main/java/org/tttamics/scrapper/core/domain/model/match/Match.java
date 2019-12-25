@@ -10,7 +10,7 @@ import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import java.time.ZonedDateTime;
 
 public class Match extends Entity {
-    private String id;
+    private MatchId id;
     private Organization local;
     private Organization visitor;
     private ZonedDateTime startDateTime;
@@ -19,7 +19,7 @@ public class Match extends Entity {
     private Integer day;
     private MatchResult result;
 
-    private Match(String id,
+    private Match(MatchId id,
                   Organization local,
                   Organization visitor,
                   ZonedDateTime startDateTime,
@@ -60,7 +60,7 @@ public class Match extends Entity {
 
     public static MatchBuilder builder(Competition competition, Organization local, Organization visitor) { return new MatchBuilder(competition, local, visitor); }
 
-    public String getId() {
+    public MatchId getId() {
         return id;
     }
 
@@ -127,7 +127,7 @@ public class Match extends Entity {
     }
 
     public static final class MatchBuilder {
-        private String id;
+        private MatchId id;
         private Organization local;
         private Organization visitor;
         private ZonedDateTime startDateTime;
@@ -142,7 +142,7 @@ public class Match extends Entity {
             this.visitor = visitor;
         }
 
-        public MatchBuilder withId(String id) {
+        public MatchBuilder withId(MatchId id) {
             this.id = id;
             return this;
         }
@@ -182,7 +182,7 @@ public class Match extends Entity {
             return  this;
         }
 
-        public String getId() {
+        public MatchId getId() {
             return id;
         }
 

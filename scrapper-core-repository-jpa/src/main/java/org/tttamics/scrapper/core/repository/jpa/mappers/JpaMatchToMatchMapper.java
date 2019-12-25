@@ -3,6 +3,7 @@ package org.tttamics.scrapper.core.repository.jpa.mappers;
 import org.springframework.context.annotation.Lazy;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
 import org.tttamics.scrapper.core.domain.model.match.Match;
+import org.tttamics.scrapper.core.domain.model.match.MatchId;
 import org.tttamics.scrapper.core.domain.model.match.MatchResult;
 import org.tttamics.scrapper.core.repository.jpa.model.JpaMatch;
 
@@ -29,7 +30,7 @@ public class JpaMatchToMatchMapper implements Function<JpaMatch, Match> {
                     jpaOrganizationToOrganizationMapper.apply(jpaMatch.getLocal()),
                     jpaOrganizationToOrganizationMapper.apply(jpaMatch.getVisitor())
                 )
-                .withId(jpaMatch.getId())
+                .withId(MatchId.of(jpaMatch.getId()))
                 .withStartDateTime(ZonedDateTime.parse(jpaMatch.getStartDateTime()))
                 .withGroup(CompetitionGroup.createCompetitionGroup(jpaMatch.getGroup()))
                 .withDay(jpaMatch.getDay())

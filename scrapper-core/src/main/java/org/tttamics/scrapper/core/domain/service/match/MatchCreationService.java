@@ -3,6 +3,7 @@ package org.tttamics.scrapper.core.domain.service.match;
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
 import org.tttamics.scrapper.core.domain.model.match.Match;
+import org.tttamics.scrapper.core.domain.model.match.MatchId;
 import org.tttamics.scrapper.core.domain.model.match.MatchResult;
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.port.MatchRepository;
@@ -37,7 +38,7 @@ public class MatchCreationService {
 
         String id = UUID.randomUUID().toString();
         Match match = Match.builder(competition, local, visitor)
-                .withId(id)
+                .withId(MatchId.of(id))
                 .withStartDateTime(startDateTime)
                 .withGroup(group)
                 .withDay(day)
