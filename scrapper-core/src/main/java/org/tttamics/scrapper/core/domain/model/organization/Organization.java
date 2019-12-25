@@ -2,8 +2,8 @@ package org.tttamics.scrapper.core.domain.model.organization;
 
 import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.OrganizationCreatedEvent;
-import org.tttamics.scrapper.core.domain.event.OrganizationModifiedEvent;
 import org.tttamics.scrapper.core.domain.event.OrganizationDeactivatedEvent;
+import org.tttamics.scrapper.core.domain.event.OrganizationModifiedEvent;
 import org.tttamics.scrapper.core.domain.event.OrganizationRemovedEvent;
 import org.tttamics.scrapper.core.domain.model.match.Match;
 
@@ -14,13 +14,13 @@ import java.util.Objects;
 
 public class Organization extends Entity {
 
-    private String id;
+    private OrganizationId id;
     private String name;
     private OrganizationType type;
     private boolean isActive;
     private List<Match> matches;
 
-    private Organization(String id, String name, OrganizationType type, boolean isActive, List<Match> matches) {
+    private Organization(OrganizationId id, String name, OrganizationType type, boolean isActive, List<Match> matches) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -71,7 +71,7 @@ public class Organization extends Entity {
         this.isActive = false;
     }
 
-    public String getId() {
+    public OrganizationId getId() {
         return id;
     }
 
@@ -99,9 +99,20 @@ public class Organization extends Entity {
         publishEvent(new OrganizationModifiedEvent());
     }
 
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", isActive=" + isActive +
+                ", matches=" + matches +
+                '}';
+    }
+
     public static final class OrganizationBuilder {
 
-        private String id;
+        private OrganizationId id;
         private String name;
         private OrganizationType type;
         private boolean isActive;
@@ -111,7 +122,7 @@ public class Organization extends Entity {
             this.name = name;
         }
 
-        public OrganizationBuilder withId(String id) {
+        public OrganizationBuilder withId(OrganizationId id) {
             this.id = id;
             return this;
         }
@@ -136,7 +147,7 @@ public class Organization extends Entity {
             return this;
         }
 
-        public String getId() {
+        public OrganizationId getId() {
             return id;
         }
 

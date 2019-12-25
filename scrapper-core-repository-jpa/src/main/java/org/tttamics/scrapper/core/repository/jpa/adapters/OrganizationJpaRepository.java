@@ -1,6 +1,5 @@
 package org.tttamics.scrapper.core.repository.jpa.adapters;
 
-import org.springframework.stereotype.Repository;
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.port.OrganizationRepository;
 import org.tttamics.scrapper.core.repository.jpa.mappers.JpaOrganizationToOrganizationMapper;

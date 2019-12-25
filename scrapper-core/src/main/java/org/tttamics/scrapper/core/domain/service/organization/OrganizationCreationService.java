@@ -1,12 +1,12 @@
 package org.tttamics.scrapper.core.domain.service.organization;
 
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
+import org.tttamics.scrapper.core.domain.model.organization.OrganizationId;
 import org.tttamics.scrapper.core.domain.model.organization.OrganizationType;
 import org.tttamics.scrapper.core.domain.port.OrganizationRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.UUID;
 
 @Named
@@ -22,7 +22,7 @@ public class OrganizationCreationService {
     public Organization createNewOrganizationForType(String name, OrganizationType organizationType) {
         String id = UUID.randomUUID().toString();
         Organization organization = Organization.builder(name)
-                .withId(id)
+                .withId(OrganizationId.of(id))
                 .withActive(true)
                 .withOrganizationType(organizationType)
                 .create();

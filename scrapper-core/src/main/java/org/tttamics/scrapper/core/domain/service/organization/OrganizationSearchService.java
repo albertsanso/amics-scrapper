@@ -7,12 +7,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-public class OrganizationFindService {
+public class OrganizationSearchService {
 
     private OrganizationRepository organizationRepository;
 
     @Inject
-    public OrganizationFindService(OrganizationRepository organizationRepository) {
+    public OrganizationSearchService(OrganizationRepository organizationRepository) {
         this.organizationRepository = organizationRepository;
     }
 

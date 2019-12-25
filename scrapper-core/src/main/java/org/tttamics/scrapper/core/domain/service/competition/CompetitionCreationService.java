@@ -2,11 +2,14 @@ package org.tttamics.scrapper.core.domain.service.competition;
 
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
+import org.tttamics.scrapper.core.domain.model.competition.CompetitionId;
 import org.tttamics.scrapper.core.domain.port.CompetitionRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Named
@@ -36,7 +39,7 @@ public class CompetitionCreationService {
     public Competition createNewCompetitionWithGroups(String name, List<CompetitionGroup> groups) {
         String id = UUID.randomUUID().toString();
         Competition competition = Competition.builder(name)
-                .withId(id)
+                .withId(CompetitionId.of(id))
                 .withGroups(groups)
                 .create();
         competitionRepository.save(competition);

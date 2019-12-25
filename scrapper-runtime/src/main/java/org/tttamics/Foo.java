@@ -3,19 +3,17 @@ package org.tttamics;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
-import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
 import org.tttamics.scrapper.core.domain.model.match.Match;
-import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.service.competition.CompetitionCreationService;
-import org.tttamics.scrapper.core.domain.service.competition.CompetitionFindService;
+import org.tttamics.scrapper.core.domain.service.competition.CompetitionSearchService;
 import org.tttamics.scrapper.core.domain.service.match.MatchCreationService;
+import org.tttamics.scrapper.core.domain.service.match.MatchSearchService;
 import org.tttamics.scrapper.core.domain.service.organization.OrganizationCreationService;
-import org.tttamics.scrapper.core.domain.service.organization.OrganizationFindService;
+import org.tttamics.scrapper.core.domain.service.organization.OrganizationSearchService;
 
 import javax.inject.Inject;
-import java.time.ZonedDateTime;
+import java.util.List;
 
 @SpringBootApplication(scanBasePackages = { "org.albertsanso", "org.tttamics" })
 public class Foo implements CommandLineRunner {
@@ -27,13 +25,16 @@ public class Foo implements CommandLineRunner {
     private OrganizationCreationService organizationCreationService;
 
     @Inject
-    private OrganizationFindService organizationFindService;
+    private OrganizationSearchService organizationSearchService;
 
     @Inject
     private MatchCreationService matchCreationService;
 
     @Inject
-    private CompetitionFindService competitionFindService;
+    private CompetitionSearchService competitionSearchService;
+
+    @Inject
+    private MatchSearchService matchSearchService;
 
     public static void main(String[] args) {
         SpringApplication.run(Foo.class, args);
@@ -42,9 +43,10 @@ public class Foo implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        Competition competition = competitionFindService.findByName("my other competition");
-        for (Match match : competition.getMatches()) {
-            System.out.println(match.getLocal().getName() + " - " + match.getVisitor().getName());
+        Competition competition = competitionSearchService.findByName("my other competition");
+        List<Match> matchList = matchSearchService.findByCompetition(competition);
+        for (Match match : matchList) {
+            System.out.println(match);
         }
 
         /*
@@ -106,7 +108,6 @@ public class Foo implements CommandLineRunner {
                 CompetitionGroup.createEmptyCompetitionGroup(),
                 1);
         */
-
 
     }
 }

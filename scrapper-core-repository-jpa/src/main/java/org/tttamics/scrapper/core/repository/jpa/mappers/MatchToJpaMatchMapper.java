@@ -14,19 +14,19 @@ import java.util.function.Function;
 public class MatchToJpaMatchMapper implements Function<Match, JpaMatch> {
 
     private OrganizationToJpaOrganizationMapper organizationToJpaOrganizationMapper;
-    private CompetitionToJpCompetitionMapper competitionToJpCompetitionMapper;
+    private CompetitionToJpaCompetitionMapper competitionToJpaCompetitionMapper;
 
     @Inject
-    public MatchToJpaMatchMapper(@Lazy OrganizationToJpaOrganizationMapper organizationToJpaOrganizationMapper, @Lazy CompetitionToJpCompetitionMapper competitionToJpCompetitionMapper) {
+    public MatchToJpaMatchMapper(@Lazy OrganizationToJpaOrganizationMapper organizationToJpaOrganizationMapper, @Lazy CompetitionToJpaCompetitionMapper competitionToJpaCompetitionMapper) {
         this.organizationToJpaOrganizationMapper = organizationToJpaOrganizationMapper;
-        this.competitionToJpCompetitionMapper = competitionToJpCompetitionMapper;
+        this.competitionToJpaCompetitionMapper = competitionToJpaCompetitionMapper;
     }
 
     @Override
     public JpaMatch apply(Match match) {
         JpaOrganization jpaOrganizationLocal = organizationToJpaOrganizationMapper.apply(match.getLocal());
         JpaOrganization jpaOrganizationVisitor = organizationToJpaOrganizationMapper.apply(match.getVisitor());
-        JpaCompetition jpaCompetition = competitionToJpCompetitionMapper.apply(match.getCompetition());
+        JpaCompetition jpaCompetition = competitionToJpaCompetitionMapper.apply(match.getCompetition());
 
         return new JpaMatch(
                 match.getId(),

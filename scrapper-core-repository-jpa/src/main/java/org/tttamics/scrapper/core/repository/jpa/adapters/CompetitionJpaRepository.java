@@ -1,13 +1,10 @@
 package org.tttamics.scrapper.core.repository.jpa.adapters;
 
-import org.springframework.stereotype.Repository;
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
-import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.port.CompetitionRepository;
-import org.tttamics.scrapper.core.repository.jpa.mappers.CompetitionToJpCompetitionMapper;
+import org.tttamics.scrapper.core.repository.jpa.mappers.CompetitionToJpaCompetitionMapper;
 import org.tttamics.scrapper.core.repository.jpa.mappers.JpaCompetitionToCompetitionMapper;
 import org.tttamics.scrapper.core.repository.jpa.model.JpaCompetition;
-import org.tttamics.scrapper.core.repository.jpa.model.JpaOrganization;
 import org.tttamics.scrapper.core.repository.jpa.repository.CompetitionJpaRepositoryHelper;
 
 import javax.inject.Inject;
@@ -18,12 +15,12 @@ import javax.transaction.Transactional;
 @Transactional
 public class CompetitionJpaRepository implements CompetitionRepository {
 
-    private CompetitionToJpCompetitionMapper competitionToJpCompetitionMapper;
+    private CompetitionToJpaCompetitionMapper competitionToJpCompetitionMapper;
     private JpaCompetitionToCompetitionMapper jpaCompetitionToCompetitionMapper;
     private CompetitionJpaRepositoryHelper competitionJpaRepositoryHelper;
 
     @Inject
-    public CompetitionJpaRepository(CompetitionToJpCompetitionMapper competitionToJpCompetitionMapper,
+    public CompetitionJpaRepository(CompetitionToJpaCompetitionMapper competitionToJpCompetitionMapper,
                                     JpaCompetitionToCompetitionMapper jpaCompetitionToCompetitionMapper,
                                     CompetitionJpaRepositoryHelper competitionJpaRepositoryHelper) {
         this.competitionToJpCompetitionMapper = competitionToJpCompetitionMapper;

@@ -4,8 +4,8 @@ import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.MatchCreatedEvent;
 import org.tttamics.scrapper.core.domain.event.MatchModifiedEvent;
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
-import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
+import org.tttamics.scrapper.core.domain.model.organization.Organization;
 
 import java.time.ZonedDateTime;
 
@@ -23,7 +23,8 @@ public class Match extends Entity {
                   Organization local,
                   Organization visitor,
                   ZonedDateTime startDateTime,
-                  Competition competition, CompetitionGroup group,
+                  Competition competition,
+                  CompetitionGroup group,
                   Integer day,
                   MatchResult result) {
         this.id = id;
@@ -109,6 +110,20 @@ public class Match extends Entity {
         this.result = result;
 
         publishEvent(new MatchModifiedEvent());
+    }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "id='" + id + '\'' +
+                ", local=" + local +
+                ", visitor=" + visitor +
+                ", startDateTime=" + startDateTime +
+                ", competition=" + competition +
+                ", group=" + group +
+                ", day=" + day +
+                ", result=" + result +
+                '}';
     }
 
     public static final class MatchBuilder {

@@ -4,7 +4,6 @@ import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.CompetitionCreatedEvent;
 import org.tttamics.scrapper.core.domain.event.CompetitionGroupAddedEvent;
 import org.tttamics.scrapper.core.domain.event.CompetitionModifiedEvent;
-import org.tttamics.scrapper.core.domain.model.match.Match;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,16 +11,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class Competition extends Entity {
-    private String id;
+    private CompetitionId id;
     private String name;
     private List<CompetitionGroup> groups;
-    private List<Match> matches;
 
-    private Competition(String id, String name, List<CompetitionGroup> groups, List<Match> matches) {
+    private Competition(CompetitionId id, String name, List<CompetitionGroup> groups) {
         this.id = id;
         this.name = name;
         this.groups = groups;
-        this.matches = matches;
     }
 
     private static Competition createNewCompetition(CompetitionBuilder builder) {
@@ -30,16 +27,10 @@ public class Competition extends Entity {
             groups = new ArrayList<>();
         }
 
-        List<Match> matches = builder.getMatches();
-        if (Objects.isNull(matches)) {
-            matches = new ArrayList<>();
-        }
-
         Competition competition = new Competition(
             builder.getId(),
             builder.getName(),
-            groups,
-            matches
+            groups
         );
 
         competition.initCompetitionCreatedEvent();
@@ -61,7 +52,7 @@ public class Competition extends Entity {
         this.publishEvent(new CompetitionGroupAddedEvent());
     }
 
-    public String getId() {
+    public CompetitionId getId() {
         return id;
     }
 
@@ -72,8 +63,6 @@ public class Competition extends Entity {
     public List<CompetitionGroup> getGroups() {
         return Collections.unmodifiableList(groups);
     }
-
-    public List<Match> getMatches() { return Collections.unmodifiableList(matches); }
 
     public void modifyCompetition(String name, List<CompetitionGroup> groups) {
         this.name = name;
@@ -88,17 +77,25 @@ public class Competition extends Entity {
                 .anyMatch(competitionGroup.getName()::equals);
     }
 
+    @Override
+    public String toString() {
+        return "Competition{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", groups=" + groups +
+                '}';
+    }
+
     public static final class CompetitionBuilder {
-        private String id;
+        private CompetitionId id;
         private String name;
         private List<CompetitionGroup> groups;
-        private List<Match> matches;
 
         public CompetitionBuilder(String name) {
             this.name = name;
         }
 
-        public CompetitionBuilder withId(String id) {
+        public CompetitionBuilder withId(CompetitionId id) {
             this.id = id;
             return this;
         }
@@ -113,12 +110,7 @@ public class Competition extends Entity {
             return this;
         }
 
-        public CompetitionBuilder withMatches(List<Match> matches) {
-            this.matches = matches;
-            return this;
-        }
-
-        public String getId() {
+        public CompetitionId getId() {
             return id;
         }
 
@@ -129,8 +121,6 @@ public class Competition extends Entity {
         public List<CompetitionGroup> getGroups() {
             return groups;
         }
-
-        public List<Match> getMatches() { return matches; }
 
         public Competition create() { return createNewCompetition(this); }
     }

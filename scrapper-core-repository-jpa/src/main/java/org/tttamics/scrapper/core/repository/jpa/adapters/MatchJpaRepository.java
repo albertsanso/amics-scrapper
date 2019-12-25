@@ -1,6 +1,6 @@
 package org.tttamics.scrapper.core.repository.jpa.adapters;
 
-import org.springframework.stereotype.Repository;
+import org.tttamics.scrapper.core.domain.model.competition.Competition;
 import org.tttamics.scrapper.core.domain.model.match.Match;
 import org.tttamics.scrapper.core.domain.port.MatchRepository;
 import org.tttamics.scrapper.core.repository.jpa.mappers.JpaMatchToMatchMapper;
@@ -11,6 +11,8 @@ import org.tttamics.scrapper.core.repository.jpa.repository.MatchJpaRepositoryHe
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @Transactional
@@ -46,5 +48,16 @@ public class MatchJpaRepository implements MatchRepository {
     public Match findById(String id) {
         JpaMatch jpaMatch = matchJpaRepositoryHelper.findById(id).get();
         return jpaMatchToMatchMapper.apply(jpaMatch);
+    }
+
+    @Override
+    public List<Match> findByCompetition(Competition competition) {
+
+        List<JpaMatch> jpaMatchList = matchJpaRepositoryHelper.findByCompetitionId(competition.getId().getId());
+        List<Match> matchList = new ArrayList<>();
+        for (JpaMatch jpaMatch : jpaMatchList) {
+            matchList.add(jpaMatchToMatchMapper.apply(jpaMatch));
+        }
+        return matchList;
     }
 }

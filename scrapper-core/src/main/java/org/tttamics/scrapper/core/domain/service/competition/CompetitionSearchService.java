@@ -5,15 +5,14 @@ import org.tttamics.scrapper.core.domain.port.CompetitionRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.ReportAsSingleViolation;
 
 @Named
-public class CompetitionFindService {
+public class CompetitionSearchService {
 
     private CompetitionRepository competitionRepository;
 
     @Inject
-    public CompetitionFindService(CompetitionRepository competitionRepository) {
+    public CompetitionSearchService(CompetitionRepository competitionRepository) {
         this.competitionRepository = competitionRepository;
     }
 
