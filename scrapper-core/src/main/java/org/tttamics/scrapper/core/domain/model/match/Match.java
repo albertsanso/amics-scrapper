@@ -3,6 +3,7 @@ package org.tttamics.scrapper.core.domain.model.match;
 import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.MatchCreatedEvent;
 import org.tttamics.scrapper.core.domain.event.MatchModifiedEvent;
+import org.tttamics.scrapper.core.domain.model.competition.Competition;
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
 
@@ -13,6 +14,7 @@ public class Match extends Entity {
     private Organization local;
     private Organization visitor;
     private ZonedDateTime startDateTime;
+    private Competition competition;
     private CompetitionGroup group;
     private Integer day;
     private MatchResult result;
@@ -21,13 +23,14 @@ public class Match extends Entity {
                   Organization local,
                   Organization visitor,
                   ZonedDateTime startDateTime,
-                  CompetitionGroup group,
+                  Competition competition, CompetitionGroup group,
                   Integer day,
                   MatchResult result) {
         this.id = id;
         this.local = local;
         this.visitor = visitor;
         this.startDateTime = startDateTime;
+        this.competition = competition;
         this.group = group;
         this.day = day;
         this.result = result;
@@ -39,6 +42,7 @@ public class Match extends Entity {
                 builder.getLocal(),
                 builder.getVisitor(),
                 builder.getStartDateTime(),
+                builder.getCompetition(),
                 builder.getGroup(),
                 builder.getDay(),
                 builder.getResult()
@@ -53,7 +57,7 @@ public class Match extends Entity {
         publishEvent(new MatchCreatedEvent());
     }
 
-    public static MatchBuilder builder(Organization local, Organization visitor) { return new MatchBuilder(local, visitor); }
+    public static MatchBuilder builder(Competition competition, Organization local, Organization visitor) { return new MatchBuilder(competition, local, visitor); }
 
     public String getId() {
         return id;
@@ -83,10 +87,15 @@ public class Match extends Entity {
         return result;
     }
 
+    public Competition getCompetition() {
+        return competition;
+    }
+
     public void modifyMatch(
             Organization local,
             Organization visitor,
             ZonedDateTime startDateTime,
+            Competition competition,
             CompetitionGroup group,
             Integer day,
             MatchResult result) {
@@ -94,6 +103,7 @@ public class Match extends Entity {
         this.local = local;
         this.visitor = visitor;
         this.startDateTime = startDateTime;
+        this.competition = competition;
         this.group = group;
         this.day = day;
         this.result = result;
@@ -106,17 +116,24 @@ public class Match extends Entity {
         private Organization local;
         private Organization visitor;
         private ZonedDateTime startDateTime;
+        private Competition competition;
         private CompetitionGroup group;
         private Integer day;
         private MatchResult result;
 
-        public MatchBuilder(Organization local, Organization visitor) {
+        public MatchBuilder(Competition competition, Organization local, Organization visitor) {
+            this.competition = competition;
             this.local = local;
             this.visitor = visitor;
         }
 
         public MatchBuilder withId(String id) {
             this.id = id;
+            return this;
+        }
+
+        public MatchBuilder withCompetition(Competition competition) {
+            this.competition = competition;
             return this;
         }
 
@@ -176,6 +193,10 @@ public class Match extends Entity {
 
         public MatchResult getResult() {
             return result;
+        }
+
+        public Competition getCompetition() {
+            return competition;
         }
 
         public Match create() { return createNewMatch(this); }

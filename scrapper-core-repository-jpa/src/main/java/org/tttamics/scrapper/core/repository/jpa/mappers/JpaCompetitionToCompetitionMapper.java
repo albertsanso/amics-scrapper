@@ -17,7 +17,7 @@ public class JpaCompetitionToCompetitionMapper implements Function<JpaCompetitio
                 .withId(jpaCompetition.getId())
                 .withGroups(Arrays.asList(jpaCompetition.getGroups().split(","))
                         .stream()
-                        .map(group -> new CompetitionGroup(group))
+                        .map(group -> CompetitionGroup.createCompetitionGroup(group))
                         .collect(Collectors.toList())).create();
     }
 }

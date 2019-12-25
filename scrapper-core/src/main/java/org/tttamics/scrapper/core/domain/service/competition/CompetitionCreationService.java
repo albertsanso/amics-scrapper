@@ -20,14 +20,15 @@ public class CompetitionCreationService {
     }
 
     public Competition createNewCompetition(String name) {
-        return createNewCompetitionWithGroups(name, null);
+        String defaultCompetitionGroupName = CompetitionGroup.getDefaultCompetitionGroupName();
+        return createNewCompetitionWithGroupNames(name, new String[] { defaultCompetitionGroupName });
     }
 
     public Competition createNewCompetitionWithGroupNames(String name, String[] groupNames) {
         return createNewCompetitionWithGroups(name,
                 Arrays.asList(groupNames)
                 .stream()
-                .map(group -> new CompetitionGroup(group))
+                .map(group -> CompetitionGroup.createCompetitionGroup(group))
                 .collect(Collectors.toList())
         );
     }

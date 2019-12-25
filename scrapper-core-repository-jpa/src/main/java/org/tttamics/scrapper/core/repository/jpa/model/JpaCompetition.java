@@ -1,8 +1,7 @@
 package org.tttamics.scrapper.core.repository.jpa.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="competitions")
@@ -10,13 +9,15 @@ public class JpaCompetition {
     private String id;
     private String name;
     private String groups;
+    private List<JpaMatch> matches;
 
     public JpaCompetition() {}
 
-    public JpaCompetition(String id, String name, String groups) {
+    public JpaCompetition(String id, String name, String groups, List<JpaMatch> matches) {
         this.id = id;
         this.name = name;
         this.groups = groups;
+        this.matches = matches;
     }
 
     @Id
@@ -43,5 +44,18 @@ public class JpaCompetition {
 
     public void setGroups(String groups) {
         this.groups = groups;
+    }
+
+    @OneToMany(
+            mappedBy = "competition",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    public List<JpaMatch> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<JpaMatch> matches) {
+        this.matches = matches;
     }
 }

@@ -4,32 +4,42 @@ import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.CompetitionCreatedEvent;
 import org.tttamics.scrapper.core.domain.event.CompetitionGroupAddedEvent;
 import org.tttamics.scrapper.core.domain.event.CompetitionModifiedEvent;
+import org.tttamics.scrapper.core.domain.model.match.Match;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Competition extends Entity {
     private String id;
     private String name;
     private List<CompetitionGroup> groups;
+    private List<Match> matches;
 
-    private Competition(String id, String name, List<CompetitionGroup> groups) {
+    private Competition(String id, String name, List<CompetitionGroup> groups, List<Match> matches) {
         this.id = id;
         this.name = name;
         this.groups = groups;
+        this.matches = matches;
     }
 
     private static Competition createNewCompetition(CompetitionBuilder builder) {
         List<CompetitionGroup> groups = builder.getGroups();
-        if (groups == null) {
+        if (Objects.isNull(groups)) {
             groups = new ArrayList<>();
         }
 
+        List<Match> matches = builder.getMatches();
+        if (Objects.isNull(matches)) {
+            matches = new ArrayList<>();
+        }
+
         Competition competition = new Competition(
-          builder.getId(),
-          builder.getName(),
-          groups
+            builder.getId(),
+            builder.getName(),
+            groups,
+            matches
         );
 
         competition.initCompetitionCreatedEvent();
@@ -63,6 +73,8 @@ public class Competition extends Entity {
         return Collections.unmodifiableList(groups);
     }
 
+    public List<Match> getMatches() { return Collections.unmodifiableList(matches); }
+
     public void modifyCompetition(String name, List<CompetitionGroup> groups) {
         this.name = name;
         this.groups = groups;
@@ -70,10 +82,17 @@ public class Competition extends Entity {
         publishEvent(new CompetitionModifiedEvent());
     }
 
+    public boolean isGroupInCompetition(CompetitionGroup competitionGroup) {
+        return this.groups.stream()
+                .map(CompetitionGroup::getName)
+                .anyMatch(competitionGroup.getName()::equals);
+    }
+
     public static final class CompetitionBuilder {
         private String id;
         private String name;
         private List<CompetitionGroup> groups;
+        private List<Match> matches;
 
         public CompetitionBuilder(String name) {
             this.name = name;
@@ -94,6 +113,11 @@ public class Competition extends Entity {
             return this;
         }
 
+        public CompetitionBuilder withMatches(List<Match> matches) {
+            this.matches = matches;
+            return this;
+        }
+
         public String getId() {
             return id;
         }
@@ -105,6 +129,8 @@ public class Competition extends Entity {
         public List<CompetitionGroup> getGroups() {
             return groups;
         }
+
+        public List<Match> getMatches() { return matches; }
 
         public Competition create() { return createNewCompetition(this); }
     }

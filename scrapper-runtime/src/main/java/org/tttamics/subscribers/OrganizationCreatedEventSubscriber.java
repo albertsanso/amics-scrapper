@@ -1,4 +1,4 @@
-package org.tttamics;
+package org.tttamics.subscribers;
 
 import org.albertsanso.commons.event.DomainEventSubscriber;
 import org.tttamics.scrapper.core.domain.event.OrganizationCreatedEvent;

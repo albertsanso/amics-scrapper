@@ -1,5 +1,6 @@
 package org.tttamics.scrapper.core.repository.jpa.mappers;
 
+import org.springframework.context.annotation.Lazy;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
 import org.tttamics.scrapper.core.domain.model.match.Match;
 import org.tttamics.scrapper.core.domain.model.match.MatchResult;
@@ -14,18 +15,23 @@ import java.util.function.Function;
 public class JpaMatchToMatchMapper implements Function<JpaMatch, Match> {
 
     private JpaOrganizationToOrganizationMapper jpaOrganizationToOrganizationMapper;
+    private JpaCompetitionToCompetitionMapper jpaCompetitionToCompetitionMapper;
 
     @Inject
-    public JpaMatchToMatchMapper(JpaOrganizationToOrganizationMapper jpaOrganizationToOrganizationMapper) {
+    public JpaMatchToMatchMapper(@Lazy JpaOrganizationToOrganizationMapper jpaOrganizationToOrganizationMapper, @Lazy JpaCompetitionToCompetitionMapper jpaCompetitionToCompetitionMapper) {
         this.jpaOrganizationToOrganizationMapper = jpaOrganizationToOrganizationMapper;
+        this.jpaCompetitionToCompetitionMapper = jpaCompetitionToCompetitionMapper;
     }
 
     @Override
     public Match apply(JpaMatch jpaMatch) {
-        return Match.builder(jpaOrganizationToOrganizationMapper.apply(jpaMatch.getLocal()), jpaOrganizationToOrganizationMapper.apply(jpaMatch.getVisitor()))
+        return Match.builder(jpaCompetitionToCompetitionMapper.apply(jpaMatch.getCompetition()),
+                    jpaOrganizationToOrganizationMapper.apply(jpaMatch.getLocal()),
+                    jpaOrganizationToOrganizationMapper.apply(jpaMatch.getVisitor())
+                )
                 .withId(jpaMatch.getId())
                 .withStartDateTime(ZonedDateTime.parse(jpaMatch.getStartDateTime()))
-                .withGroup(new CompetitionGroup(jpaMatch.getGroup()))
+                .withGroup(CompetitionGroup.createCompetitionGroup(jpaMatch.getGroup()))
                 .withDay(jpaMatch.getDay())
                 .withResult(new MatchResult(jpaMatch.getLocalResultValue(), jpaMatch.getVisitorResultValue()))
                 .create();

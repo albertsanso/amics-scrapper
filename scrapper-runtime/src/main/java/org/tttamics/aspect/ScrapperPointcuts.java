@@ -23,17 +23,16 @@ public class ScrapperPointcuts {
         this.eventPublisher = eventPublisher;
     }
 
-    //@Pointcut(value="execution(* org.tttamics.scrapper.core.domain.service.**.*Service.*(..))")
-    @Pointcut(value="execution(* org.tttamics.scrapper.core.repository.jpa.adapters.*Repository.save(..))")
+    @Pointcut(value="execution(public * org.tttamics.scrapper.core.repository.jpa.adapters.*Repository.save(..)) ||" +
+            "execution(public * org.tttamics.scrapper.core.repository.jpa.adapters.*Repository.remove(..))")
     void triggerRepositorySave() {}
 
     @Around(value = "triggerRepositorySave()")
     public void aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
-        extractAndPublishEvents(pjp);
         try {
             pjp.proceed();
         } finally {
-            // Do something useful.
+            extractAndPublishEvents(pjp);
         }
     }
 

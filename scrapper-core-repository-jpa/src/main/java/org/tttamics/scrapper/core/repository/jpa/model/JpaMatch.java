@@ -9,6 +9,7 @@ public class JpaMatch {
     private JpaOrganization local;
     private JpaOrganization visitor;
     private String startDateTime;
+    private JpaCompetition competition;
     private String group;
     private Integer day;
     private Integer localResultValue;
@@ -16,11 +17,12 @@ public class JpaMatch {
 
     public JpaMatch() {}
 
-    public JpaMatch(String id, JpaOrganization local, JpaOrganization visitor, String startDateTime, String group, Integer day, Integer localResultValue, Integer visitorResultValue) {
+    public JpaMatch(String id, JpaOrganization local, JpaOrganization visitor, String startDateTime, JpaCompetition competition, String group, Integer day, Integer localResultValue, Integer visitorResultValue) {
         this.id = id;
         this.local = local;
         this.visitor = visitor;
         this.startDateTime = startDateTime;
+        this.competition = competition;
         this.group = group;
         this.day = day;
         this.localResultValue = localResultValue;
@@ -36,7 +38,7 @@ public class JpaMatch {
         this.id = id;
     }
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="local_organization_id")
     public JpaOrganization getLocal() {
         return local;
@@ -46,7 +48,7 @@ public class JpaMatch {
         this.local = local;
     }
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="visitor_organization_id")
     public JpaOrganization getVisitor() {
         return visitor;
@@ -99,5 +101,15 @@ public class JpaMatch {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="competition_id")
+    public JpaCompetition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(JpaCompetition competition) {
+        this.competition = competition;
     }
 }

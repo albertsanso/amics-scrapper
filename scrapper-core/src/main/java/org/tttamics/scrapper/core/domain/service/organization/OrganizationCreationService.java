@@ -6,6 +6,7 @@ import org.tttamics.scrapper.core.domain.port.OrganizationRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Named
