@@ -2,9 +2,9 @@ package org.tttamics.scrapper.core.domain.service.match;
 
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
-import org.tttamics.scrapper.core.domain.model.match.Match;
-import org.tttamics.scrapper.core.domain.model.match.MatchId;
-import org.tttamics.scrapper.core.domain.model.match.MatchResult;
+import org.tttamics.scrapper.core.domain.model.game.Match;
+import org.tttamics.scrapper.core.domain.model.game.MatchId;
+import org.tttamics.scrapper.core.domain.model.game.MatchResult;
 import org.tttamics.scrapper.core.domain.model.organization.Organization;
 import org.tttamics.scrapper.core.domain.port.MatchRepository;
 

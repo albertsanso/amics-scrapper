@@ -5,7 +5,7 @@ import org.tttamics.scrapper.core.domain.event.OrganizationCreatedEvent;
 import org.tttamics.scrapper.core.domain.event.OrganizationDeactivatedEvent;
 import org.tttamics.scrapper.core.domain.event.OrganizationModifiedEvent;
 import org.tttamics.scrapper.core.domain.event.OrganizationRemovedEvent;
-import org.tttamics.scrapper.core.domain.model.match.Match;
+import org.tttamics.scrapper.core.domain.model.game.Match;
 
 import java.util.ArrayList;
 import java.util.Collections;

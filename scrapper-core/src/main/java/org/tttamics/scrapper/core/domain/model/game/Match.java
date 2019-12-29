@@ -1,4 +1,4 @@
-package org.tttamics.scrapper.core.domain.model.match;
+package org.tttamics.scrapper.core.domain.model.game;
 
 import org.albertsanso.commons.model.Entity;
 import org.tttamics.scrapper.core.domain.event.MatchCreatedEvent;

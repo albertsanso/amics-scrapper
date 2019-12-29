@@ -1,7 +1,7 @@
 package org.tttamics.scrapper.core.domain.port;
 
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
-import org.tttamics.scrapper.core.domain.model.match.Match;
+import org.tttamics.scrapper.core.domain.model.game.Match;
 
 import java.util.List;
 

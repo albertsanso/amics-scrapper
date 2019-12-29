@@ -3,8 +3,6 @@ package org.tttamics;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.tttamics.scrapper.core.domain.model.competition.Competition;
-import org.tttamics.scrapper.core.domain.model.match.Match;
 import org.tttamics.scrapper.core.domain.service.competition.CompetitionCreationService;
 import org.tttamics.scrapper.core.domain.service.competition.CompetitionSearchService;
 import org.tttamics.scrapper.core.domain.service.match.MatchCreationService;
@@ -13,7 +11,6 @@ import org.tttamics.scrapper.core.domain.service.organization.OrganizationCreati
 import org.tttamics.scrapper.core.domain.service.organization.OrganizationSearchService;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @SpringBootApplication(scanBasePackages = { "org.albertsanso", "org.tttamics" })
 public class Foo implements CommandLineRunner {
@@ -43,13 +40,14 @@ public class Foo implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
+        /*
         Competition competition = competitionSearchService.findByName("my other competition");
         List<Match> matchList = matchSearchService.findByCompetition(competition);
         for (Match match : matchList) {
             System.out.println(match);
         }
 
-        /*
+
         Competition competition1 = competitionCreationService.createNewCompetition("my competition");
         Competition competition2 = competitionCreationService.createNewCompetitionWithGroupNames("my other competition", new String[]{"G1", "G2", "G3"});
 
@@ -107,7 +105,7 @@ public class Foo implements CommandLineRunner {
                 ZonedDateTime.now(),
                 CompetitionGroup.createEmptyCompetitionGroup(),
                 1);
-        */
 
+         */
     }
 }

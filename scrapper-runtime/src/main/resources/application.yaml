@@ -1,0 +1,7 @@
+retrieval:
+  bcn:
+    c:/csv/bcn-output.csv
+  cat:
+    c:/csv/cat-output.csv
+  esp:
+    c:/csv/esp-output.csv

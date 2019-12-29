@@ -2,9 +2,9 @@ package org.tttamics.scrapper.core.repository.jpa.mappers;
 
 import org.springframework.context.annotation.Lazy;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
-import org.tttamics.scrapper.core.domain.model.match.Match;
-import org.tttamics.scrapper.core.domain.model.match.MatchId;
-import org.tttamics.scrapper.core.domain.model.match.MatchResult;
+import org.tttamics.scrapper.core.domain.model.game.Match;
+import org.tttamics.scrapper.core.domain.model.game.MatchId;
+import org.tttamics.scrapper.core.domain.model.game.MatchResult;
 import org.tttamics.scrapper.core.repository.jpa.model.JpaMatch;
 
 import javax.inject.Inject;

@@ -1,7 +1,7 @@
 package org.tttamics.scrapper.core.repository.jpa.adapters;
 
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
-import org.tttamics.scrapper.core.domain.model.match.Match;
+import org.tttamics.scrapper.core.domain.model.game.Match;
 import org.tttamics.scrapper.core.domain.port.MatchRepository;
 import org.tttamics.scrapper.core.repository.jpa.mappers.JpaMatchToMatchMapper;
 import org.tttamics.scrapper.core.repository.jpa.mappers.MatchToJpaMatchMapper;
