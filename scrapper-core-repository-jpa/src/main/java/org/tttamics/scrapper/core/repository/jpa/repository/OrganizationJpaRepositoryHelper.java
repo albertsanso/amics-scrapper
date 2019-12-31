@@ -6,5 +6,6 @@ import org.tttamics.scrapper.core.repository.jpa.model.JpaOrganization;
 
 @Repository
 public interface OrganizationJpaRepositoryHelper extends CrudRepository<JpaOrganization, String> {
+    JpaOrganization findByName(String name);
     JpaOrganization findByNameLike(String name);
 }

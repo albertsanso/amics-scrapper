@@ -162,7 +162,7 @@ public class ResultsCrawler {
         String dateTimeString = scratchedData.get(ScratchedResultField.DATETIME);
         ZonedDateTime zonedDateTime = null;
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yy");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
             Date dateStr = formatter.parse(dateTimeString);
             zonedDateTime = ZonedDateTime.ofInstant(dateStr.toInstant(), ZoneId.systemDefault());
 

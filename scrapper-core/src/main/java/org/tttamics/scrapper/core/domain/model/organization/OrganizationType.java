@@ -1,7 +1,7 @@
 package org.tttamics.scrapper.core.domain.model.organization;
 
 public enum OrganizationType  {
-    CLUB ("club");
+    CLUB ("CLUB");
 
     private String typeValue;
 

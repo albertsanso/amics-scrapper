@@ -15,6 +15,7 @@
         <module>scrapper-core-repository-jpa</module>
         <module>scrapper-runtime</module>
         <module>scrapper-results-retrieval</module>
+        <module>scrapper-results-import</module>
     </modules>
 
     <properties>

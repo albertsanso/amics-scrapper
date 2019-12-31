@@ -10,6 +10,7 @@ import org.tttamics.scrapper.core.repository.jpa.repository.OrganizationJpaRepos
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import java.util.Objects;
 
 @Named
 @Transactional
@@ -44,11 +45,19 @@ public class OrganizationJpaRepository implements OrganizationRepository {
     @Override
     public Organization findById(String id) {
         JpaOrganization jpaOrganization = organizationJpaRepositoryHelper.findById(id).get();
+        if (Objects.isNull(jpaOrganization)) return null;
         return jpaOrganizationToOrganizationMapper.apply(jpaOrganization);
     }
 
     @Override
     public Organization findByName(String name) {
+        JpaOrganization jpaOrganization = organizationJpaRepositoryHelper.findByName(name);
+        if (jpaOrganization == null) return null;
+        return jpaOrganizationToOrganizationMapper.apply(jpaOrganization);
+    }
+
+    @Override
+    public Organization findByNameLike(String name) {
         JpaOrganization jpaOrganization = organizationJpaRepositoryHelper.findByNameLike("%"+name+"%");
         if (jpaOrganization == null) return null;
         return jpaOrganizationToOrganizationMapper.apply(jpaOrganization);

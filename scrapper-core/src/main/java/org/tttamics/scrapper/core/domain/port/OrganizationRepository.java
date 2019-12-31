@@ -7,4 +7,5 @@ public interface OrganizationRepository {
     void remove(Organization organization);
     Organization findById(String id);
     Organization findByName(String name);
+    Organization findByNameLike(String name);
 }

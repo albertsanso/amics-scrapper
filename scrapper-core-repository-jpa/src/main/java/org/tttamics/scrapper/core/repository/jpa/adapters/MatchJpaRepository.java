@@ -13,6 +13,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Named
 @Transactional
@@ -47,6 +48,7 @@ public class MatchJpaRepository implements MatchRepository {
     @Override
     public Match findById(String id) {
         JpaMatch jpaMatch = matchJpaRepositoryHelper.findById(id).get();
+        if (Objects.isNull(jpaMatch)) return null;
         return jpaMatchToMatchMapper.apply(jpaMatch);
     }
 
@@ -54,6 +56,7 @@ public class MatchJpaRepository implements MatchRepository {
     public List<Match> findByCompetition(Competition competition) {
 
         List<JpaMatch> jpaMatchList = matchJpaRepositoryHelper.findByCompetitionId(competition.getId().getId());
+        if (Objects.isNull(jpaMatchList)) return null;
         List<Match> matchList = new ArrayList<>();
         for (JpaMatch jpaMatch : jpaMatchList) {
             matchList.add(jpaMatchToMatchMapper.apply(jpaMatch));

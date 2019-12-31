@@ -54,6 +54,12 @@
             <artifactId>yamlbeans</artifactId>
             <version>1.06</version>
         </dependency>
+        <dependency>
+            <groupId>org.tttamics</groupId>
+            <artifactId>scrapper-results-import</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
