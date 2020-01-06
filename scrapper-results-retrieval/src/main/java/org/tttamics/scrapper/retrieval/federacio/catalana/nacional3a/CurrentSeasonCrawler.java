@@ -59,7 +59,6 @@ public class CurrentSeasonCrawler {
         System.out.println(textDocument);
         System.out.println("-----------------------");
 
-        //Match.builder(Competition.builder("").create(), Organization.builder().create())
         return null;
     }
 

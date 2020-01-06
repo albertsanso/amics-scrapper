@@ -11,11 +11,13 @@
 
     <modules>
         <module>scrapper-core</module>
-        <module>scrapper-commons</module>
+        <module>scrapper-core-utils</module>
         <module>scrapper-core-repository-jpa</module>
         <module>scrapper-runtime</module>
         <module>scrapper-results-retrieval</module>
         <module>scrapper-results-import</module>
+        <module>scrapper-results-retrieval-runtime</module>
+        <module>scrapper-results-import-runtime</module>
     </modules>
 
     <properties>

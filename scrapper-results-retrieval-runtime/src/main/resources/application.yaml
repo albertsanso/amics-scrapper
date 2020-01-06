@@ -1,0 +1,10 @@
+retrieval:
+  bcn:
+    file:
+      c:/csv/bcn-output.csv
+    seasons:
+      - 2019-2020
+  cat:
+    c:/csv/cat-output.csv
+  esp:
+    c:/csv/esp-output.csv

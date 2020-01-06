@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Table(name="matches")
 public class JpaMatch {
     private String id;
-    private JpaOrganization local;
-    private JpaOrganization visitor;
+    private JpaTeam local;
+    private JpaTeam visitor;
     private String startDateTime;
     private JpaCompetition competition;
     private String group;
@@ -17,7 +17,7 @@ public class JpaMatch {
 
     public JpaMatch() {}
 
-    public JpaMatch(String id, JpaOrganization local, JpaOrganization visitor, String startDateTime, JpaCompetition competition, String group, Integer day, Integer localResultValue, Integer visitorResultValue) {
+    public JpaMatch(String id, JpaTeam local, JpaTeam visitor, String startDateTime, JpaCompetition competition, String group, Integer day, Integer localResultValue, Integer visitorResultValue) {
         this.id = id;
         this.local = local;
         this.visitor = visitor;
@@ -39,22 +39,22 @@ public class JpaMatch {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="local_organization_id")
-    public JpaOrganization getLocal() {
+    @JoinColumn(name="local_team_id")
+    public JpaTeam getLocal() {
         return local;
     }
 
-    public void setLocal(JpaOrganization local) {
+    public void setLocal(JpaTeam local) {
         this.local = local;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="visitor_organization_id")
-    public JpaOrganization getVisitor() {
+    @JoinColumn(name="visitor_team_id")
+    public JpaTeam getVisitor() {
         return visitor;
     }
 
-    public void setVisitor(JpaOrganization visitor) {
+    public void setVisitor(JpaTeam visitor) {
         this.visitor = visitor;
     }
 

@@ -3,18 +3,21 @@ package org.tttamics;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.tttamics.configuration.RetrievalProperties;
 import org.tttamics.scrapper.importer.domain.service.ResultImportService;
 
 import javax.inject.Inject;
 
 @SpringBootApplication(scanBasePackages = { "org.albertsanso", "org.tttamics" })
-public class ImportFoo1 implements CommandLineRunner {
+@EnableConfigurationProperties({RetrievalProperties.class})
+public class ResultsImporter implements CommandLineRunner {
 
     @Inject
     private ResultImportService resultImportService;
 
     public static void main(String[] args) {
-        SpringApplication.run(ImportFoo1.class, args);
+        SpringApplication.run(ResultsImporter.class, args);
     }
 
     @Override

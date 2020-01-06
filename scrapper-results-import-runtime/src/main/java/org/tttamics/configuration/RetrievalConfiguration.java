@@ -1,24 +1,22 @@
 package org.tttamics.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.tttamics.YamlResourceReader;
 import org.tttamics.scrapper.importer.domain.service.ResultsReader;
 import org.tttamics.scrapper.retrieval.ResultsWriter;
+import org.tttamics.util.YamlResourceReader;
 
-import javax.inject.Inject;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Configuration
-@EnableConfigurationProperties(RetrievalProperties.class)
 public class RetrievalConfiguration {
 
     private final RetrievalProperties retrievalProperties;
 
-    @Inject
+    @Autowired
     public RetrievalConfiguration(RetrievalProperties retrievalProperties) {
         this.retrievalProperties = retrievalProperties;
     }
@@ -28,32 +26,38 @@ public class RetrievalConfiguration {
         return new YamlResourceReader();
     }
 
+
     @Qualifier("BcnResultsWriter")
-    @Bean(name = "BcnResultsWriter")
-    public ResultsWriter getBcnResultsWriter() throws IOException {
+    @Bean//(name = "ResultsWriter")
+    public ResultsWriter getResultsWriter() throws IOException {
         ResultsWriter resultsWriter = new ResultsWriter();
-        resultsWriter.setCsvFile(retrievalProperties.getBcn());
+        resultsWriter.setCsvFile(retrievalProperties.getBcn().getFile());
         return resultsWriter;
     }
 
+
+    /*
     @Bean(name = "CatResultsWriter")
-    public ResultsWriter getCatResultsWriter() throws IOException {
-        ResultsWriter resultsWriter = new ResultsWriter();
-        resultsWriter.setCsvFile(retrievalProperties.getCat());
-        return resultsWriter;
+    public BcnResultsWriter getCatResultsWriter() throws IOException {
+        BcnResultsWriter bcnResultsWriter = new BcnResultsWriter();
+        bcnResultsWriter.setCsvFile(retrievalProperties.getCat());
+        return bcnResultsWriter;
     }
 
     @Bean(name = "EspResultsWriter")
-    public ResultsWriter getEspResultsWriter() throws IOException {
-        ResultsWriter resultsWriter = new ResultsWriter();
-        resultsWriter.setCsvFile(retrievalProperties.getEsp());
-        return resultsWriter;
+    public BcnResultsWriter getEspResultsWriter() throws IOException {
+        BcnResultsWriter bcnResultsWriter = new BcnResultsWriter();
+        bcnResultsWriter.setCsvFile(retrievalProperties.getEsp());
+        return bcnResultsWriter;
     }
+    */
 
     @Bean
     public ResultsReader getResultsReader() throws FileNotFoundException {
         ResultsReader reader = new ResultsReader();
-        reader.setCsvFileString(retrievalProperties.getBcn());
+        reader.setCsvFileString(retrievalProperties.getBcn().getFile());
         return  reader;
     }
+
+
 }

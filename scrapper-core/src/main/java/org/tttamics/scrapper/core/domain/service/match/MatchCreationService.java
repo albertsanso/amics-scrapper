@@ -5,7 +5,7 @@ import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
 import org.tttamics.scrapper.core.domain.model.game.Match;
 import org.tttamics.scrapper.core.domain.model.game.MatchId;
 import org.tttamics.scrapper.core.domain.model.game.MatchResult;
-import org.tttamics.scrapper.core.domain.model.organization.Organization;
+import org.tttamics.scrapper.core.domain.model.team.Team;
 import org.tttamics.scrapper.core.domain.port.MatchRepository;
 
 import javax.inject.Inject;
@@ -25,8 +25,8 @@ public class MatchCreationService {
 
     public Match createNewMatch(
             Competition competition,
-            Organization local,
-            Organization visitor,
+            Team local,
+            Team visitor,
             ZonedDateTime startDateTime,
             CompetitionGroup group,
             Integer day

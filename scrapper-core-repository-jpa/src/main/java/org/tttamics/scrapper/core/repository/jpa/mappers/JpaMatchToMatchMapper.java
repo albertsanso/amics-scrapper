@@ -15,20 +15,20 @@ import java.util.function.Function;
 @Named
 public class JpaMatchToMatchMapper implements Function<JpaMatch, Match> {
 
-    private JpaOrganizationToOrganizationMapper jpaOrganizationToOrganizationMapper;
+    private JpaTeamToTeamMapper jpaTeamToTeamMapper;
     private JpaCompetitionToCompetitionMapper jpaCompetitionToCompetitionMapper;
 
     @Inject
-    public JpaMatchToMatchMapper(@Lazy JpaOrganizationToOrganizationMapper jpaOrganizationToOrganizationMapper, @Lazy JpaCompetitionToCompetitionMapper jpaCompetitionToCompetitionMapper) {
-        this.jpaOrganizationToOrganizationMapper = jpaOrganizationToOrganizationMapper;
+    public JpaMatchToMatchMapper(@Lazy JpaTeamToTeamMapper jpaTeamToTeamMapper, @Lazy JpaCompetitionToCompetitionMapper jpaCompetitionToCompetitionMapper) {
+        this.jpaTeamToTeamMapper = jpaTeamToTeamMapper;
         this.jpaCompetitionToCompetitionMapper = jpaCompetitionToCompetitionMapper;
     }
 
     @Override
     public Match apply(JpaMatch jpaMatch) {
         return Match.builder(jpaCompetitionToCompetitionMapper.apply(jpaMatch.getCompetition()),
-                    jpaOrganizationToOrganizationMapper.apply(jpaMatch.getLocal()),
-                    jpaOrganizationToOrganizationMapper.apply(jpaMatch.getVisitor())
+                    jpaTeamToTeamMapper.apply(jpaMatch.getLocal()),
+                    jpaTeamToTeamMapper.apply(jpaMatch.getVisitor())
                 )
                 .withId(MatchId.of(jpaMatch.getId()))
                 .withStartDateTime(ZonedDateTime.parse(jpaMatch.getStartDateTime()))

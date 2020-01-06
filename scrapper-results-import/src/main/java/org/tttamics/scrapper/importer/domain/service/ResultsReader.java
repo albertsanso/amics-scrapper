@@ -1,7 +1,6 @@
 package org.tttamics.scrapper.importer.domain.service;
 
 import com.opencsv.CSVReader;
-import org.tttamics.scrapper.core.domain.model.game.Match;
 import org.tttamics.scrapper.importer.domain.model.MatchRecordResult;
 
 import java.io.File;

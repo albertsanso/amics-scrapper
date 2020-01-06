@@ -5,14 +5,14 @@ import org.tttamics.scrapper.core.domain.event.MatchCreatedEvent;
 import org.tttamics.scrapper.core.domain.event.MatchModifiedEvent;
 import org.tttamics.scrapper.core.domain.model.competition.Competition;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
-import org.tttamics.scrapper.core.domain.model.organization.Organization;
+import org.tttamics.scrapper.core.domain.model.team.Team;
 
 import java.time.ZonedDateTime;
 
 public class Match extends Entity {
     private MatchId id;
-    private Organization local;
-    private Organization visitor;
+    private Team local;
+    private Team visitor;
     private ZonedDateTime startDateTime;
     private Competition competition;
     private CompetitionGroup group;
@@ -20,8 +20,8 @@ public class Match extends Entity {
     private MatchResult result;
 
     private Match(MatchId id,
-                  Organization local,
-                  Organization visitor,
+                  Team local,
+                  Team visitor,
                   ZonedDateTime startDateTime,
                   Competition competition,
                   CompetitionGroup group,
@@ -58,17 +58,17 @@ public class Match extends Entity {
         publishEvent(new MatchCreatedEvent());
     }
 
-    public static MatchBuilder builder(Competition competition, Organization local, Organization visitor) { return new MatchBuilder(competition, local, visitor); }
+    public static MatchBuilder builder(Competition competition, Team local, Team visitor) { return new MatchBuilder(competition, local, visitor); }
 
     public MatchId getId() {
         return id;
     }
 
-    public Organization getLocal() {
+    public Team getLocal() {
         return local;
     }
 
-    public Organization getVisitor() {
+    public Team getVisitor() {
         return visitor;
     }
 
@@ -93,8 +93,8 @@ public class Match extends Entity {
     }
 
     public void modifyMatch(
-            Organization local,
-            Organization visitor,
+            Team local,
+            Team visitor,
             ZonedDateTime startDateTime,
             Competition competition,
             CompetitionGroup group,
@@ -128,15 +128,15 @@ public class Match extends Entity {
 
     public static final class MatchBuilder {
         private MatchId id;
-        private Organization local;
-        private Organization visitor;
+        private Team local;
+        private Team visitor;
         private ZonedDateTime startDateTime;
         private Competition competition;
         private CompetitionGroup group;
         private Integer day;
         private MatchResult result;
 
-        public MatchBuilder(Competition competition, Organization local, Organization visitor) {
+        public MatchBuilder(Competition competition, Team local, Team visitor) {
             this.competition = competition;
             this.local = local;
             this.visitor = visitor;
@@ -152,12 +152,12 @@ public class Match extends Entity {
             return this;
         }
 
-        public MatchBuilder withLocal(Organization local) {
+        public MatchBuilder withLocal(Team local) {
             this.local = local;
             return this;
         }
 
-        public MatchBuilder withVisitor(Organization visitor) {
+        public MatchBuilder withVisitor(Team visitor) {
             this.visitor = visitor;
             return this;
         }
@@ -186,11 +186,11 @@ public class Match extends Entity {
             return id;
         }
 
-        public Organization getLocal() {
+        public Team getLocal() {
             return local;
         }
 
-        public Organization getVisitor() {
+        public Team getVisitor() {
             return visitor;
         }
 

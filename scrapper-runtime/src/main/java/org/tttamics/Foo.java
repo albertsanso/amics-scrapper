@@ -7,8 +7,8 @@ import org.tttamics.scrapper.core.domain.service.competition.CompetitionCreation
 import org.tttamics.scrapper.core.domain.service.competition.CompetitionSearchService;
 import org.tttamics.scrapper.core.domain.service.match.MatchCreationService;
 import org.tttamics.scrapper.core.domain.service.match.MatchSearchService;
-import org.tttamics.scrapper.core.domain.service.organization.OrganizationCreationService;
-import org.tttamics.scrapper.core.domain.service.organization.OrganizationSearchService;
+import org.tttamics.scrapper.core.domain.service.team.TeamCreationService;
+import org.tttamics.scrapper.core.domain.service.team.TeamSearchService;
 
 import javax.inject.Inject;
 
@@ -19,10 +19,10 @@ public class Foo implements CommandLineRunner {
     private CompetitionCreationService competitionCreationService;
 
     @Inject
-    private OrganizationCreationService organizationCreationService;
+    private TeamCreationService teamCreationService;
 
     @Inject
-    private OrganizationSearchService organizationSearchService;
+    private TeamSearchService teamSearchService;
 
     @Inject
     private MatchCreationService matchCreationService;
