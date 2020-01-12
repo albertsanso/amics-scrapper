@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Lazy;
 import org.tttamics.scrapper.core.domain.model.game.Match;
 import org.tttamics.scrapper.core.repository.jpa.model.JpaCompetition;
 import org.tttamics.scrapper.core.repository.jpa.model.JpaMatch;
+import org.tttamics.scrapper.core.repository.jpa.model.JpaOrganization;
 import org.tttamics.scrapper.core.repository.jpa.model.JpaTeam;
 
 import javax.inject.Inject;
@@ -17,7 +18,9 @@ public class MatchToJpaMatchMapper implements Function<Match, JpaMatch> {
     private CompetitionToJpaCompetitionMapper competitionToJpaCompetitionMapper;
 
     @Inject
-    public MatchToJpaMatchMapper(@Lazy TeamToJpaTeamMapper teamToJpaTeamMapper, @Lazy CompetitionToJpaCompetitionMapper competitionToJpaCompetitionMapper) {
+    public MatchToJpaMatchMapper(
+            @Lazy TeamToJpaTeamMapper teamToJpaTeamMapper,
+            @Lazy CompetitionToJpaCompetitionMapper competitionToJpaCompetitionMapper) {
         this.teamToJpaTeamMapper = teamToJpaTeamMapper;
         this.competitionToJpaCompetitionMapper = competitionToJpaCompetitionMapper;
     }
@@ -37,7 +40,6 @@ public class MatchToJpaMatchMapper implements Function<Match, JpaMatch> {
                 match.getGroup().getName(),
                 match.getDay(),
                 match.getResult().getLocalResultValue(),
-                match.getResult().getVisitorResultValue()
-        );
+                match.getResult().getVisitorResultValue());
     }
 }

@@ -1,26 +1,22 @@
 package org.tttamics.scrapper.core.repository.jpa.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="teams")
 public class JpaTeam {
     private String id;
     private String name;
-    private String type;
     private boolean isActive;
+    private JpaOrganization organization;
 
     public JpaTeam() {}
 
-    public JpaTeam(String id, String name, String type, boolean isActive) {
+    public JpaTeam(String id, String name, boolean isActive, JpaOrganization organization) {
         this.id = id;
         this.name = name;
-        this.type = type;
         this.isActive = isActive;
-
+        this.organization = organization;
     }
 
     @Id
@@ -41,15 +37,6 @@ public class JpaTeam {
         this.name = name;
     }
 
-    @Column(name="type")
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     @Column(name="active")
     public boolean isActive() {
         return isActive;
@@ -57,5 +44,15 @@ public class JpaTeam {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="organization_id")
+    public JpaOrganization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(JpaOrganization organization) {
+        this.organization = organization;
     }
 }

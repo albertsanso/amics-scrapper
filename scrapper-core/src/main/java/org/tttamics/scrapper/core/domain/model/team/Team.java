@@ -16,16 +16,16 @@ public class Team extends Entity {
 
     private TeamId id;
     private String name;
-    private OrganizationType type;
     private boolean isActive;
     private List<Match> matches;
+    private Organization organization;
 
-    private Team(TeamId id, String name, OrganizationType type, boolean isActive, List<Match> matches) {
+    private Team(TeamId id, String name, boolean isActive, List<Match> matches, Organization organization) {
         this.id = id;
         this.name = name;
-        this.type = type;
         this.isActive = isActive;
         this.matches = matches;
+        this.organization = organization;
     }
 
     public static TeamBuilder builder(String name) { return new TeamBuilder(name); }
@@ -39,9 +39,9 @@ public class Team extends Entity {
         Team team = new Team(
                 builder.getId(),
                 builder.getName(),
-                builder.getType(),
                 builder.isActive(),
-                matches);
+                matches,
+                builder.getOrganization());
 
         team.initTeamCreatedEvent();
 
@@ -79,10 +79,6 @@ public class Team extends Entity {
         return name;
     }
 
-    public OrganizationType getType() {
-        return type;
-    }
-
     public boolean isActive() {
         return isActive;
     }
@@ -91,32 +87,26 @@ public class Team extends Entity {
         return Collections.unmodifiableList(matches);
     }
 
-    public void modifyOrganization(String name, OrganizationType type, boolean isActive) {
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void modifyTeam(String name, boolean isActive, Organization organization) {
         this.name = name;
-        this.type = type;
         this.isActive = isActive;
+        this.organization = organization;
 
         publishEvent(new TeamModifiedEvent());
     }
 
-    @Override
-    public String toString() {
-        return "Organization{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type=" + type +
-                ", isActive=" + isActive +
-                ", matches=" + matches +
-                '}';
-    }
 
     public static final class TeamBuilder {
 
         private TeamId id;
         private String name;
-        private OrganizationType type;
         private boolean isActive;
         private List<Match> matches;
+        private Organization organization;
 
         public TeamBuilder(String name) {
             this.name = name;
@@ -132,11 +122,6 @@ public class Team extends Entity {
             return this;
         }
 
-        public TeamBuilder withOrganizationType(OrganizationType organizationType) {
-            this.type = organizationType;
-            return this;
-        }
-
         public TeamBuilder withActive(boolean active) {
             this.isActive = active;
             return this;
@@ -144,6 +129,11 @@ public class Team extends Entity {
 
         public TeamBuilder withMatches(List<Match> matches) {
             this.matches = matches;
+            return this;
+        }
+
+        public TeamBuilder withOrganization(Organization organization) {
+            this.organization = organization;
             return this;
         }
 
@@ -155,16 +145,16 @@ public class Team extends Entity {
             return name;
         }
 
-        public OrganizationType getType() {
-            return type;
-        }
-
         public boolean isActive() {
             return isActive;
         }
 
         public List<Match> getMatches() {
             return matches;
+        }
+
+        public Organization getOrganization() {
+            return organization;
         }
 
         public Team create() { return createNewTeam(this); }

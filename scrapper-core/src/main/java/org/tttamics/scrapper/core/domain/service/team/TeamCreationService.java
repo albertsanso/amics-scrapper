@@ -1,5 +1,6 @@
 package org.tttamics.scrapper.core.domain.service.team;
 
+import org.tttamics.scrapper.core.domain.model.team.Organization;
 import org.tttamics.scrapper.core.domain.model.team.Team;
 import org.tttamics.scrapper.core.domain.model.team.TeamId;
 import org.tttamics.scrapper.core.domain.model.team.OrganizationType;
@@ -19,21 +20,16 @@ public class TeamCreationService {
         this.teamRepository = teamRepository;
     }
 
-    public Team createNewTeamForType(String name, OrganizationType organizationType) {
+    public Team createNewTeamForOrganization(String name, Organization organization) {
         String id = UUID.randomUUID().toString();
         Team team = Team.builder(name)
                 .withId(TeamId.of(id))
                 .withActive(true)
-                .withOrganizationType(organizationType)
+                .withOrganization(organization)
                 .create();
 
         teamRepository.save(team);
 
         return team;
     }
-
-    public Team createNewClub(String name) {
-        return createNewTeamForType(name, OrganizationType.CLUB);
-    }
-
 }

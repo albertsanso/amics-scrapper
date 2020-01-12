@@ -4,11 +4,14 @@ import org.tttamics.scrapper.core.domain.model.competition.Competition;
 import org.tttamics.scrapper.core.domain.model.competition.CompetitionGroup;
 import org.tttamics.scrapper.core.domain.model.game.Match;
 import org.tttamics.scrapper.core.domain.model.game.MatchResult;
+import org.tttamics.scrapper.core.domain.model.team.Organization;
 import org.tttamics.scrapper.core.domain.model.team.Team;
 import org.tttamics.scrapper.core.domain.service.competition.CompetitionCreationService;
 import org.tttamics.scrapper.core.domain.service.competition.CompetitionModificationService;
 import org.tttamics.scrapper.core.domain.service.competition.CompetitionSearchService;
 import org.tttamics.scrapper.core.domain.service.match.MatchCreationService;
+import org.tttamics.scrapper.core.domain.service.team.OrganizationCreationService;
+import org.tttamics.scrapper.core.domain.service.team.OrganizationSearchService;
 import org.tttamics.scrapper.core.domain.service.team.TeamCreationService;
 import org.tttamics.scrapper.core.domain.service.team.TeamSearchService;
 import org.tttamics.scrapper.importer.domain.model.MatchRecordResult;
@@ -36,8 +39,12 @@ public class ResultImportService {
 
     private MatchCreationService matchCreationService;
 
+    private OrganizationSearchService organizationSearchService;
+
+    private OrganizationCreationService organizationCreationService;
+
     @Inject
-    public ResultImportService(ResultsReader resultsReader, TeamSearchService teamSearchService, TeamCreationService teamCreationService, CompetitionSearchService competitionSearchService, CompetitionCreationService competitionCreationService, CompetitionModificationService competitionModificationService, MatchCreationService matchCreationService) {
+    public ResultImportService(ResultsReader resultsReader, TeamSearchService teamSearchService, TeamCreationService teamCreationService, CompetitionSearchService competitionSearchService, CompetitionCreationService competitionCreationService, CompetitionModificationService competitionModificationService, MatchCreationService matchCreationService, OrganizationSearchService organizationSearchService, OrganizationCreationService organizationCreationService) {
         this.resultsReader = resultsReader;
         this.teamSearchService = teamSearchService;
         this.teamCreationService = teamCreationService;
@@ -45,6 +52,8 @@ public class ResultImportService {
         this.competitionCreationService = competitionCreationService;
         this.competitionModificationService = competitionModificationService;
         this.matchCreationService = matchCreationService;
+        this.organizationSearchService = organizationSearchService;
+        this.organizationCreationService = organizationCreationService;
     }
 
     public void doImport() throws IOException, IllegalAccessException {
@@ -52,8 +61,11 @@ public class ResultImportService {
         List<MatchRecordResult> matchRecordResults = resultsReader.read();
         for (MatchRecordResult matchRecordResult : matchRecordResults) {
 
-            Team local = resolveTeamByName(matchRecordResult.getLocal());
-            Team visitor = resolveTeamByName(matchRecordResult.getVisitor());
+            Organization localOrganization = resolveOrganizationByName(matchRecordResult.getLocal());
+            Team local = resolveTeamByName(matchRecordResult.getLocal(), localOrganization);
+
+            Organization visitorOrganization = resolveOrganizationByName(matchRecordResult.getVisitor());
+            Team visitor = resolveTeamByName(matchRecordResult.getVisitor(), visitorOrganization);
 
             Competition competition = resolveCompetitionByName(matchRecordResult.getCategory());
             CompetitionGroup competitionGroup = resolveCompetitionGroupByName(matchRecordResult.getGroup(), competition);
@@ -80,13 +92,25 @@ public class ResultImportService {
         return teamName.strip().replaceAll("''", "");
     }
 
-    private Team resolveTeamByName(String teamName) {
+    private Organization resolveOrganizationByName(String organizationName) {
+
+        Organization organization = organizationSearchService.findByName(organizationName);
+        if (Objects.isNull(organization)) {
+
+            organization = organizationCreationService.createNewOrganization(organizationName);
+        }
+
+        return organization;
+    }
+
+    private Team resolveTeamByName(String teamName, Organization organization) {
 
         teamName = normalizeName(teamName);
         Team team = teamSearchService.findByName(teamName);
         if (Objects.isNull(team)) {
 
-            team = teamCreationService.createNewClub(teamName);
+            //team = teamCreationService.createNewClub(teamName);
+            team = teamCreationService.createNewTeamForOrganization(teamName, organization);
         }
         return team;
     }
